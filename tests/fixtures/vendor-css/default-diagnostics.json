@@ -1,0 +1,674 @@
+[
+  {
+    "name": "unknown",
+    "source": ".a { colr: red; COLOR: red; --custom: #12; _color: red; *color: red; -example-madeup: x; }",
+    "diagnostics": [
+      {
+        "code": "css-lcurlyexpected",
+        "source": "css",
+        "message": "{ expected",
+        "severity": 1,
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 62
+          },
+          "end": {
+            "line": 0,
+            "character": 63
+          }
+        }
+      },
+      {
+        "code": "unknownProperties",
+        "source": "css",
+        "message": "Unknown property: 'colr'",
+        "severity": 2,
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 5
+          },
+          "end": {
+            "line": 0,
+            "character": 9
+          }
+        }
+      }
+    ]
+  },
+  {
+    "name": "exportBlock",
+    "source": ":export { arbitrary: 1; -webkit-transform: none; }",
+    "diagnostics": []
+  },
+  {
+    "name": "normalPrefix",
+    "source": ".a { -webkit-transform: none; }",
+    "diagnostics": [
+      {
+        "code": "vendorPrefix",
+        "source": "css",
+        "message": "Also define the standard property 'transform' for compatibility",
+        "severity": 2,
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 5
+          },
+          "end": {
+            "line": 0,
+            "character": 22
+          }
+        }
+      }
+    ]
+  },
+  {
+    "name": "prefixWithStandard",
+    "source": ".a { -webkit-transform: none; transform: none; }",
+    "diagnostics": []
+  },
+  {
+    "name": "matchingPseudo",
+    "source": "input::-webkit-slider-thumb { -webkit-appearance: none; }",
+    "diagnostics": []
+  },
+  {
+    "name": "matchingPseudoNested",
+    "source": "input::-webkit-slider-thumb { & > span { -webkit-appearance: none; } }",
+    "diagnostics": []
+  },
+  {
+    "name": "otherPseudo",
+    "source": "input::-moz-range-thumb { -webkit-appearance: none; }",
+    "diagnostics": [
+      {
+        "code": "vendorPrefix",
+        "source": "css",
+        "message": "Also define the standard property 'appearance' for compatibility",
+        "severity": 2,
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 26
+          },
+          "end": {
+            "line": 0,
+            "character": 44
+          }
+        }
+      }
+    ]
+  },
+  {
+    "name": "prefixKeyframes",
+    "source": "@-webkit-keyframes rotate { from { transform: none; } to { transform: rotate(1turn); } }",
+    "diagnostics": [
+      {
+        "code": "vendorPrefix",
+        "source": "css",
+        "message": "Always define standard rule '@keyframes' when defining keyframes.",
+        "severity": 2,
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 18
+          }
+        }
+      }
+    ]
+  },
+  {
+    "name": "pairedKeyframes",
+    "source": "@-webkit-keyframes a { from { opacity: 0; } } @keyframes a { from { opacity: 0; } }",
+    "diagnostics": []
+  },
+  {
+    "name": "fontFaceMissing",
+    "source": "@font-face { font-family: Example; }",
+    "diagnostics": [
+      {
+        "code": "fontFaceProperties",
+        "source": "css",
+        "message": "@font-face rule must define 'src' and 'font-family' properties",
+        "severity": 2,
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 36
+          }
+        }
+      }
+    ]
+  },
+  {
+    "name": "fontFaceValid",
+    "source": "@font-face { font-family: Example; src: url(example.woff2); }",
+    "diagnostics": []
+  },
+  {
+    "name": "fontFaceMixedCase",
+    "source": "@font-face { FONT-FAMILY: Example; SRC: url(example.woff2); }",
+    "diagnostics": []
+  },
+  {
+    "name": "emptyRules",
+    "source": ".a, .b { /* comment */ } @media print { .a {} }",
+    "diagnostics": [
+      {
+        "code": "emptyRules",
+        "source": "css",
+        "message": "Do not use empty rulesets",
+        "severity": 2,
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 6
+          }
+        }
+      },
+      {
+        "code": "emptyRules",
+        "source": "css",
+        "message": "Do not use empty rulesets",
+        "severity": 2,
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 40
+          },
+          "end": {
+            "line": 0,
+            "character": 42
+          }
+        }
+      }
+    ]
+  },
+  {
+    "name": "displayBlock",
+    "source": ".a { display: block; vertical-align: middle; }",
+    "diagnostics": [
+      {
+        "code": "propertyIgnoredDueToDisplay",
+        "source": "css",
+        "message": "Property is ignored due to the display. With 'display: block', vertical-align should not be used.",
+        "severity": 2,
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 21
+          },
+          "end": {
+            "line": 0,
+            "character": 43
+          }
+        }
+      }
+    ]
+  },
+  {
+    "name": "displayInlineBlock",
+    "source": ".a { display: inline-block; float: left; }",
+    "diagnostics": [
+      {
+        "code": "propertyIgnoredDueToDisplay",
+        "source": "css",
+        "message": "inline-block is ignored due to the float. If 'float' has a value other than 'none', the box is floated and 'display' is treated as 'block'",
+        "severity": 2,
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 28
+          },
+          "end": {
+            "line": 0,
+            "character": 39
+          }
+        }
+      }
+    ]
+  },
+  {
+    "name": "ignoredDefaultRules",
+    "source": "#id { color: red; color: red; width: 0px; padding: 1px; float: left !important; } * { color:red; }",
+    "diagnostics": []
+  },
+  {
+    "name": "hexColors",
+    "source": ".a { color: #12; background:#abcd; border-color:#abcdef12; outline-color:#12345; --custom:#12; }",
+    "diagnostics": [
+      {
+        "code": "css-ruleorselectorexpected",
+        "source": "css",
+        "message": "at-rule or selector expected",
+        "severity": 1,
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 95
+          },
+          "end": {
+            "line": 0,
+            "character": 96
+          }
+        }
+      },
+      {
+        "code": "css-propertyvalueexpected",
+        "source": "css",
+        "message": "property value expected",
+        "severity": 1,
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 12
+          },
+          "end": {
+            "line": 0,
+            "character": 15
+          }
+        }
+      },
+      {
+        "code": "css-lcurlyexpected",
+        "source": "css",
+        "message": "{ expected",
+        "severity": 1,
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 33
+          },
+          "end": {
+            "line": 0,
+            "character": 34
+          }
+        }
+      },
+      {
+        "code": "css-identifierexpected",
+        "source": "css",
+        "message": "identifier expected",
+        "severity": 1,
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 28
+          },
+          "end": {
+            "line": 0,
+            "character": 33
+          }
+        }
+      },
+      {
+        "code": "css-lcurlyexpected",
+        "source": "css",
+        "message": "{ expected",
+        "severity": 1,
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 57
+          },
+          "end": {
+            "line": 0,
+            "character": 58
+          }
+        }
+      },
+      {
+        "code": "css-identifierexpected",
+        "source": "css",
+        "message": "identifier expected",
+        "severity": 1,
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 48
+          },
+          "end": {
+            "line": 0,
+            "character": 57
+          }
+        }
+      },
+      {
+        "code": "css-lcurlyexpected",
+        "source": "css",
+        "message": "{ expected",
+        "severity": 1,
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 79
+          },
+          "end": {
+            "line": 0,
+            "character": 80
+          }
+        }
+      },
+      {
+        "code": "css-identifierexpected",
+        "source": "css",
+        "message": "identifier expected",
+        "severity": 1,
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 73
+          },
+          "end": {
+            "line": 0,
+            "character": 79
+          }
+        }
+      },
+      {
+        "code": "css-lcurlyexpected",
+        "source": "css",
+        "message": "{ expected",
+        "severity": 1,
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 93
+          },
+          "end": {
+            "line": 0,
+            "character": 94
+          }
+        }
+      },
+      {
+        "code": "css-identifierexpected",
+        "source": "css",
+        "message": "identifier expected",
+        "severity": 1,
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 90
+          },
+          "end": {
+            "line": 0,
+            "character": 93
+          }
+        }
+      }
+    ]
+  },
+  {
+    "name": "hexColorLength",
+    "source": ".a { color:#12345; }",
+    "diagnostics": [
+      {
+        "code": "css-ruleorselectorexpected",
+        "source": "css",
+        "message": "at-rule or selector expected",
+        "severity": 1,
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 19
+          },
+          "end": {
+            "line": 0,
+            "character": 20
+          }
+        }
+      },
+      {
+        "code": "css-propertyvalueexpected",
+        "source": "css",
+        "message": "property value expected",
+        "severity": 1,
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 11
+          },
+          "end": {
+            "line": 0,
+            "character": 17
+          }
+        }
+      }
+    ]
+  },
+  {
+    "name": "hashAsCustomProperty",
+    "source": ".a { --custom: #12; }",
+    "diagnostics": []
+  },
+  {
+    "name": "customPropertyValue",
+    "source": ".a { --custom: #12345; }",
+    "diagnostics": []
+  },
+  {
+    "name": "unknownOnly",
+    "source": ".a { colr: red; COLOR: red; }",
+    "diagnostics": [
+      {
+        "code": "unknownProperties",
+        "source": "css",
+        "message": "Unknown property: 'colr'",
+        "severity": 2,
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 5
+          },
+          "end": {
+            "line": 0,
+            "character": 9
+          }
+        }
+      }
+    ]
+  },
+  {
+    "name": "vendorOnly",
+    "source": ".a { -example-madeup: x; }",
+    "diagnostics": []
+  },
+  {
+    "name": "underscoreHack",
+    "source": ".a { _color: red; }",
+    "diagnostics": []
+  },
+  {
+    "name": "starHack",
+    "source": ".a { *color: red; }",
+    "diagnostics": [
+      {
+        "code": "css-lcurlyexpected",
+        "source": "css",
+        "message": "{ expected",
+        "severity": 1,
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 11
+          },
+          "end": {
+            "line": 0,
+            "character": 12
+          }
+        }
+      }
+    ]
+  },
+  {
+    "name": "colorFunctions",
+    "source": ".a { color:rgb(1,2); background:rgba(1,2,3); border-color:hsl(1 2% 3% / .5); outline-color:rgb(from red r g b); }",
+    "diagnostics": []
+  },
+  {
+    "name": "knownAtRules",
+    "source": "@layer reset, base; @container card (width > 30em) { .a { color:red; } } @property --x { syntax: '<color>'; inherits:false; initial-value:red; }",
+    "diagnostics": []
+  },
+  {
+    "name": "unknownAtRule",
+    "source": "@tailwind utilities; @unknown thing { .a { colr:red; } }",
+    "diagnostics": [
+      {
+        "code": "unknownAtRules",
+        "source": "css",
+        "message": "Unknown at rule @tailwind",
+        "severity": 2,
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 9
+          }
+        }
+      },
+      {
+        "code": "unknownAtRules",
+        "source": "css",
+        "message": "Unknown at rule @unknown",
+        "severity": 2,
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 21
+          },
+          "end": {
+            "line": 0,
+            "character": 29
+          }
+        }
+      }
+    ]
+  },
+  {
+    "name": "nesting",
+    "source": ".a { color: red; &:hover { colr: blue; } @media (width > 1px) { color: blue; } }",
+    "diagnostics": [
+      {
+        "code": "unknownProperties",
+        "source": "css",
+        "message": "Unknown property: 'colr'",
+        "severity": 2,
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 27
+          },
+          "end": {
+            "line": 0,
+            "character": 31
+          }
+        }
+      }
+    ]
+  },
+  {
+    "name": "syntaxRecovery",
+    "source": ".a { color red; colr: blue; } .b { margin: ; padding: 1px }",
+    "diagnostics": [
+      {
+        "code": "css-colonexpected",
+        "source": "css",
+        "message": "colon expected",
+        "severity": 1,
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 11
+          },
+          "end": {
+            "line": 0,
+            "character": 14
+          }
+        }
+      },
+      {
+        "code": "css-propertyvalueexpected",
+        "source": "css",
+        "message": "property value expected",
+        "severity": 1,
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 43
+          },
+          "end": {
+            "line": 0,
+            "character": 44
+          }
+        }
+      },
+      {
+        "code": "unknownProperties",
+        "source": "css",
+        "message": "Unknown property: 'colr'",
+        "severity": 2,
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 16
+          },
+          "end": {
+            "line": 0,
+            "character": 20
+          }
+        }
+      }
+    ]
+  },
+  {
+    "name": "stringsComments",
+    "source": ".a { content:\"colr: #12; {}\"; background:url(\"x#12\"); /* colr: #12; */ color:red; }",
+    "diagnostics": []
+  },
+  {
+    "name": "unicodeCrlf",
+    "source": ".😀 {\r\n  content: '😀';\r\n  colr: red;\r\n}",
+    "diagnostics": [
+      {
+        "code": "unknownProperties",
+        "source": "css",
+        "message": "Unknown property: 'colr'",
+        "severity": 2,
+        "range": {
+          "start": {
+            "line": 2,
+            "character": 2
+          },
+          "end": {
+            "line": 2,
+            "character": 6
+          }
+        }
+      }
+    ]
+  },
+  {
+    "name": "customBlock",
+    "source": ".a { --x: { colr: red; color:#12; }; color:var(--x); }",
+    "diagnostics": []
+  }
+]
